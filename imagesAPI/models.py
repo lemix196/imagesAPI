@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.urls import path
 
 
 class Thumbnail(models.Model):
@@ -30,9 +32,16 @@ class AccountTier(models.Model):
         return self.tier_name
 
 
+class ImageUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    tier = models.ForeignKey(AccountTier, on_delete=models.CASCADE)
+
+
 class Image(models.Model):
     img = models.ImageField()
     original_url = models.URLField()
     owner = models.ForeignKey('auth.User', related_name='images', on_delete=models.CASCADE, blank=False, null=False)
 
-    
+
+    def set_image_URL(self, id, user):
+        self.original_url = path('api/images/<self.user>/<self.id>')
