@@ -33,6 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     #User apps
     'imagesAPI',
+
+    #3rd party apps
+    'rest_framework',
     #Built-in apps
     'django.contrib.admin',
     'django.contrib.auth',

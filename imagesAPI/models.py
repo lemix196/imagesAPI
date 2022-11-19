@@ -29,15 +29,10 @@ class AccountTier(models.Model):
     def __str__(self):
         return self.tier_name
 
-# class User(models.Model):
-#     user_name = models.CharField(max_length=30)
-#     user_pass = models.CharField(max_length=30)
-#     user_tier = models.ForeignKey(AccountTier,on_delete=models.CASCADE, blank=False, null=False)
-
-#     def __str__(self):
-#         return self.user_name
-
 
 class Image(models.Model):
     img = models.ImageField()
+    original_url = models.URLField()
     owner = models.ForeignKey('auth.User', related_name='images', on_delete=models.CASCADE, blank=False, null=False)
+
+    
