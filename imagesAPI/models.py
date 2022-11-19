@@ -33,8 +33,9 @@ class AccountTier(models.Model):
 
 
 class ImageUser(models.Model):
+    """Model class overriding built-in Django User and adding tier to every user created (obligatory)."""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    tier = models.ForeignKey(AccountTier, on_delete=models.CASCADE)
+    tier = models.ForeignKey(AccountTier, on_delete=models.CASCADE, blank=False, null=False)
 
 
 class Image(models.Model):

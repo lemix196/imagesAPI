@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from imagesAPI.views import image_list
+from imagesAPI.views import ImageList
 
 urlpatterns = [
-    path('api/images/', image_list)
+    path('api/images/', ImageList.as_view())
 ]
