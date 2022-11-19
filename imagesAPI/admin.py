@@ -1,3 +1,7 @@
 from django.contrib import admin
+from imagesAPI.models import Thumbnail, AccountTier, Image
 
-# Register your models here.
+
+admin.site.register(Thumbnail)
+admin.site.register(AccountTier)
+admin.site.register(Image)
