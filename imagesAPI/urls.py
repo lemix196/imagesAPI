@@ -19,5 +19,5 @@ from imagesAPI.views import ImageList, show_image
 
 urlpatterns = [
     path('api/images/', ImageList.as_view()),
-    path('api/images/<int:id>/', show_image)
+    path('api/images/<int:id>/', show_image, name='show-image')
 ]

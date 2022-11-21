@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import path
-
+from django.urls import reverse
 
 class Thumbnail(models.Model):
     """Model class for storing Thumbnail heights. Has one field with int value of 
@@ -40,9 +39,12 @@ class ImageUser(models.Model):
 
 class Image(models.Model):
     img = models.ImageField()
-    original_url = models.URLField()
+    original_url = models.CharField(max_length=200, blank=True, null=True)
     owner = models.ForeignKey('auth.User', related_name='images', on_delete=models.CASCADE, blank=False, null=False)
 
 
-    def set_image_URL(self, id, user):
-        self.original_url = path('api/images/<self.user>/<self.id>')
+    def save(self, *args, **kwargs):
+        if not self.original_url:
+            next_id = Image.objects.latest('id').id + 1
+            self.original_url = 'api/images/{}'.format(next_id)
+        return super(Image, self).save(*args, **kwargs)

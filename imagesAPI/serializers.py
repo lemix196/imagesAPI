@@ -8,7 +8,9 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ['id', 'img', 'original_url', 'owner']
-        
+
+    def save(self, **kwargs):
+        return super().save(**kwargs)    
 
 
 class UserSerializer(serializers.ModelSerializer):
