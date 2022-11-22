@@ -40,11 +40,25 @@ class ImageUser(models.Model):
 class Image(models.Model):
     img = models.ImageField()
     original_url = models.CharField(max_length=200, blank=True, null=True)
+    thumbnail_urls = models.JSONField(blank=True, null=True)
     owner = models.ForeignKey('auth.User', related_name='images', on_delete=models.CASCADE, blank=False, null=False)
 
 
     def save(self, *args, **kwargs):
         if not self.original_url:
+            # generate link to original-sized image
             next_id = Image.objects.latest('id').id + 1
             self.original_url = 'api/images/{}'.format(next_id)
+
+        if not self.thumbnail_urls:
+            # generate urls for thumbnail images
+            thumbnail_height_values = self.owner.imageuser.tier.tier_thumbnails.values()
+            th_dict = {}
+            next_id = Image.objects.latest('id').id + 1
+            for ind, value in enumerate(thumbnail_height_values):
+                value = list(value.values())[0]
+                print(next_id, value)
+                th_dict[ind] = 'api/images/{}/{}'.format(next_id, value)
+            self.thumbnail_urls = th_dict
+
         return super(Image, self).save(*args, **kwargs)

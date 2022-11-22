@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from imagesAPI.views import ImageList, show_image
+from imagesAPI.views import ImageList, show_image, create_thumbnail
 
 urlpatterns = [
     path('api/images/', ImageList.as_view()),
-    path('api/images/<int:id>/', show_image, name='show-image')
+    path('api/images/<int:id>/', show_image, name='show-image'),
+    path('api/images/<id>/<thumbnail_height>/', create_thumbnail)
 ]

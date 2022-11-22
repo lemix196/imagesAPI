@@ -31,3 +31,8 @@ def show_image(request, id):
     }
     if request.method == 'GET':
         return render(request, 'show_image.html', context=context)
+
+
+def create_thumbnail(request, id, thumbnail_height):
+    image = Image.objects.get(pk=id)
+    return None
