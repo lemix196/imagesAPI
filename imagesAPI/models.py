@@ -57,7 +57,6 @@ class Image(models.Model):
             next_id = Image.objects.latest('id').id + 1
             for ind, value in enumerate(thumbnail_height_values):
                 value = list(value.values())[0]
-                print(next_id, value)
                 th_dict[ind] = 'api/images/{}/{}'.format(next_id, value)
             self.thumbnail_urls = th_dict
 

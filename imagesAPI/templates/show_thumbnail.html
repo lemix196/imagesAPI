@@ -6,11 +6,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Original Image {{ image.id }}</title>
+    <title>Thumbnail {{image.id}}</title>
 </head>
 <body>
     {% if user == image.owner %}
-        <img src="/static/{{ image.img }}">
+        <img src="/static/{{ image.img }}" width="{{th_width}}" height="{{th_height}}">
     {% else %}
         <h1>Access to image denied</h1>
     {% endif %}

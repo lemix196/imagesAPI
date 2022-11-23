@@ -2,6 +2,8 @@ from rest_framework import generics, permissions
 from imagesAPI.models import Image
 from imagesAPI.serializers import ImageSerializer
 from django.shortcuts import render
+from PIL import Image as PILImage
+import os
 
 class ImageList(generics.ListCreateAPIView):
     serializer_class = ImageSerializer
@@ -35,4 +37,14 @@ def show_image(request, id):
 
 def create_thumbnail(request, id, thumbnail_height):
     image = Image.objects.get(pk=id)
-    return None
+    user = request.user
+    img_file = PILImage.open(image.img)
+    width, height = img_file.size
+    thumbnail_width = int(width * (int(thumbnail_height) / height))
+    context = {
+        'image': image,
+        'th_width': thumbnail_width,
+        'th_height': thumbnail_height,
+        'user': user
+    }
+    return render(request, 'show_thumbnail.html', context=context)
