@@ -25,6 +25,7 @@ class ImageList(generics.ListCreateAPIView):
 
 # Image view (to improve)
 def show_image(request, id):
+    """View for showing image in original size"""
     image = Image.objects.get(pk=id)
     user = request.user
     context = {
@@ -36,6 +37,7 @@ def show_image(request, id):
 
 
 def create_thumbnail(request, id, thumbnail_height):
+    """View for showing image thumbnail with given thumbnail height"""
     image = Image.objects.get(pk=id)
     user = request.user
     img_file = PILImage.open(image.img)

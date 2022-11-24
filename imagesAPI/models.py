@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Thumbnail(models.Model):
     """Model class for storing Thumbnail heights. Has one field with int value of 
        thumbnail height and is in Many-To-Many relationship with AccountTier model class.
        
-            th_height [int]: integer value of thumbnail height (in pixels)"""
+            th_height [int]: integer value of thumbnail height (in pixels) fron range 1 to 2000"""
 
-    th_height = models.IntegerField(primary_key=True)
+    th_height = models.IntegerField(primary_key=True, validators=[MaxValueValidator(2000), 
+                                                                  MinValueValidator(1)])
 
     def __str__(self):
         return str(self.th_height)
